@@ -1,0 +1,15 @@
+# PostgreSQL local da prova de conceito.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: clima
+      POSTGRES_PASSWORD: clima
+      POSTGRES_DB: clima_varejo
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/migrations:/docker-entrypoint-initdb.d:ro
+volumes:
+  pgdata:

@@ -1,0 +1,42 @@
+# Recorte do piloto (seção 10 do documento de escopo).
+piloto:
+  nome: Rede TOP
+  periodo:
+    inicio: 2024-11-01
+    fim: 2026-10-31          # 24 meses móveis
+  fuso_local: America/Sao_Paulo
+  varejistas:
+    - idvarejista: redetop-indaial-sc
+      bandeira: Rede TOP
+      formato: Supermercado
+      lojas_ativas: 25
+    - idvarejista: preceiro-indaial-sc
+      bandeira: Preceiro
+      formato: Atacarejo
+      lojas_ativas: 6
+  # Fora do piloto por série curta.
+  lojas_excluidas:
+    - GTOPINHO
+    - Rede TOP Porto Belo
+
+# Hierarquia de fontes (seção 15). Ordem = prioridade.
+fontes:
+  observacao_local: [INMET, EPAGRI]
+  chuva_adensada: [CEMADEN]
+  grade_lacunas: [ERA5_LAND]
+  validacao: [GPM_IMERG, NASA_POWER, NOAA_ISD]
+
+# Estações automáticas do INMET que atendem as lojas (seção 12).
+inmet:
+  url_pacote_anual: https://portal.inmet.gov.br/uploads/dadoshistoricos/{ano}.zip
+  anos: [2024, 2025, 2026]
+  estacoes: [A817, A868, A851, A863]
+
+qualidade:
+  interpolar_temperatura_max_horas: 3   # chuva nunca é interpolada
+  valores_nulos: ["", "-9999"]
+  faixas:                              # fora da faixa -> flag, não descarte
+    temperatura_c: [-10, 45]
+    precipitacao_mm: [0, 150]
+    radiacao_w_m2: [0, 1500]
+    umidade_pct: [0, 100]
